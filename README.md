@@ -37,16 +37,33 @@ public class App : DesignApplication
     {
         return true;
     }
+}
+```
 
-    public override void OnStartup()
+The `DesignApplication<T>` support the `T` type using the interface `IDesignAutomation` and an instance is created to `Execute` the Design Automation.
+
+```C#
+public class App : DesignApplication<DesignAutomation>
+{
+
+}
+public class DesignAutomation : IDesignAutomation
+{
+    public bool Execute(Application application, string filePath, Document document)
     {
-
+        return true;
     }
+}
+```
 
-    public override void OnShutdown()
-    {
+The `OnStartup` and `OnShutdown` methods are virtual to be overridden.
 
-    }
+```C#
+public class App : DesignApplication<DesignAutomation>
+{
+    public override void OnStartup() {}
+
+    public override void OnShutdown() {}
 }
 ```
 
