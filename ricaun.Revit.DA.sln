@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{1EE349B1-F20E-4D96-A9B2-ADD5603EF86A}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.DA", "ricaun.Revit.DA\ricaun.Revit.DA.csproj", "{99D779B6-E425-4D06-8059-C7693906D855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build", "Build\Build.csproj", "{CB10A5D9-C347-43A3-A502-81AE158E6967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.DA.Example", "ricaun.Revit.DA.Example\ricaun.Revit.DA.Example.csproj", "{8C4F7B78-A2C7-474E-9371-774A880EEDEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.DA.Tests", "ricaun.Revit.DA.Tests\ricaun.Revit.DA.Tests.csproj", "{C2064882-AE83-43B1-A673-09214035C692}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99D779B6-E425-4D06-8059-C7693906D855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D779B6-E425-4D06-8059-C7693906D855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D779B6-E425-4D06-8059-C7693906D855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D779B6-E425-4D06-8059-C7693906D855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB10A5D9-C347-43A3-A502-81AE158E6967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB10A5D9-C347-43A3-A502-81AE158E6967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C4F7B78-A2C7-474E-9371-774A880EEDEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C4F7B78-A2C7-474E-9371-774A880EEDEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C4F7B78-A2C7-474E-9371-774A880EEDEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C4F7B78-A2C7-474E-9371-774A880EEDEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2064882-AE83-43B1-A673-09214035C692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2064882-AE83-43B1-A673-09214035C692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2064882-AE83-43B1-A673-09214035C692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2064882-AE83-43B1-A673-09214035C692}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

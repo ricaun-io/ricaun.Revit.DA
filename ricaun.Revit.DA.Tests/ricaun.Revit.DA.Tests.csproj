@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ricaun.Autodesk.Forge.Oss.DesignAutomation" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ricaun.Revit.DA.Example\ricaun.Revit.DA.Example.csproj" />
+  </ItemGroup>
+
+</Project>
