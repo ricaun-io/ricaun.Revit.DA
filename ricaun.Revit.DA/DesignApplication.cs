@@ -7,6 +7,14 @@ using System;
 
 namespace ricaun.Revit.DA
 {
+    public abstract class DesignApplication<T> : DesignApplication where T : IDesignAutomation
+    {
+        public override bool Execute(Application application, string filePath, Document document)
+        {
+            return Activator.CreateInstance<T>().Execute(application, filePath, document);
+        }
+    }
+
     public abstract class DesignApplication : IExternalDBApplication, IDesignAutomation
     {
         /// <summary>
@@ -18,8 +26,8 @@ namespace ricaun.Revit.DA
         /// </summary>
         public virtual bool UseDesignApplicationLoader => true;
         public ControlledApplication ControlledApplication { get; private set; }
-        public abstract void OnStartup();
-        public abstract void OnShutdown();
+        public virtual void OnStartup() { }
+        public virtual void OnShutdown() { }
         public abstract bool Execute(Application application, string filePath, Document document);
 
         private IExternalDBApplication designApplication;
