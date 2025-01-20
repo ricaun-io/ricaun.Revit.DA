@@ -18,6 +18,13 @@ Install the `ricaun.Revit.DA` library from NuGet.
 <PackageReference Include="ricaun.Revit.DA" Version="*" />
 ```
 
+## Features
+
+The main feature of this library is to fix some issues and limitations from the official Design Automation for Revit.
+
+- Support `PackageContents.xml` with multiple versions - [Design Automation for Revit ignores PackageContents.xml configuration.](https://github.com/ricaun-io/RevitAddin.DA.Tester/issues/7)
+- Support `ActiveAddInId` inside Design Automation ready event. - [Design Automation for Revit ActiveAddInId is null](https://github.com/ricaun-io/RevitAddin.DA.Tester/issues/9)
+
 ## DesignApplication
 
 The `DesignApplication` is a base class with some abstractions to help you to execute Design Automation for Revit.
@@ -51,6 +58,16 @@ The `ControlledApplication` stores the internal `ControlledApplication` from the
 public override void OnStartup()
 {
     ControlledApplication.ApplicationInitialized += (s, e) => { };
+}
+```
+
+#### UseExternalService
+
+The `UseExternalService` is `true` by default to force the Design Automation to support `ActiveAddInId` by executing the `Execute` inside the `ExternalService`.
+```C#
+public class App : DesignApplication
+{
+    public override bool UseExternalService => false; // true by default
 }
 ```
 
