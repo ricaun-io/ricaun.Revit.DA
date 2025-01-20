@@ -11,6 +11,8 @@ namespace ricaun.Revit.DA.Tests
     {
         //[TestCase("2024", "4.7", "19", null)]
         //[TestCase("2025", "4.7", "19", null)]
+        //[TestCase("2019", "4.7", "19", "Example")]
+        //[TestCase("2020", "4.7", "19", "Example")]
         [TestCase("2024", "4.8", "21", "Example")]
         [TestCase("2025", "8.0", "25", "Example")]
         public async Task ExecuteDesignAutomation(string engine, string frameworkNameContain, string referenceContain, string addInNameContain)
@@ -24,7 +26,9 @@ namespace ricaun.Revit.DA.Tests
 
             Console.WriteLine(output.ToJson());
 
-            Assert.IsTrue(output.VersionName.Contains(engine), $"VersionName {output.VersionName} not contains engine {engine}");
+            var versionNameContain = engine;
+
+            Assert.IsTrue(output.VersionName.Contains(versionNameContain), $"VersionName {output.VersionName} not contains engine {versionNameContain}");
             Assert.IsTrue(output.FrameworkName.Contains(frameworkNameContain), $"FrameworkName {output.FrameworkName} not contains framework {frameworkNameContain}");
             Assert.IsTrue(output.Reference.Contains(referenceContain), $"Reference {output.Reference} not contains reference {referenceContain}");
 
