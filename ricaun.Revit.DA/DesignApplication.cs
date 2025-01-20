@@ -6,13 +6,13 @@ namespace ricaun.Revit.DA
 {
     public abstract class DesignApplication : IExternalDBApplication, IDesignAutomation
     {
-        public ControlledApplication Application { get; private set; }
+        public ControlledApplication ControlledApplication { get; private set; }
         public abstract void OnStartup();
         public abstract void OnShutdown();
         public abstract bool Execute(Application application, string filePath, Document document);
         public ExternalDBApplicationResult OnStartup(ControlledApplication application)
         {
-            Application = application;
+            ControlledApplication = application;
             OnStartup();
             DesignAutomationBridge.DesignAutomationReadyEvent += DesignAutomationReadyEvent;
 
@@ -21,7 +21,7 @@ namespace ricaun.Revit.DA
 
         public ExternalDBApplicationResult OnShutdown(ControlledApplication application)
         {
-            Application = application;
+            ControlledApplication = application;
             OnShutdown();
             DesignAutomationBridge.DesignAutomationReadyEvent -= DesignAutomationReadyEvent;
 

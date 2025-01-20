@@ -1,9 +1,6 @@
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
-using ricaun.Revit.DA.Example.Models;
-using ricaun.Revit.DA.Extensions;
 using System;
-using System.IO;
 
 namespace ricaun.Revit.DA.Example.Revit
 {
@@ -22,7 +19,7 @@ namespace ricaun.Revit.DA.Example.Revit
 
         public override void OnStartup()
         {
-            Console.WriteLine($"ActiveAddInId: \t{Application.ActiveAddInId?.GetAddInName()}");
+            Console.WriteLine($"ActiveAddInId: \t{ControlledApplication.ActiveAddInId?.GetAddInName()}");
         }
 
         public override void OnShutdown()
