@@ -14,14 +14,24 @@ namespace ricaun.Revit.DA.ExternalServer
     /// Because the external server is registered before the Revit finish initialize the executed service run in the same ActiveAddIn when the external service is registered.
     /// Fix the issue that DesignAutomationReadyEvent triggers without the ActiveAddIn context.
     /// </remarks>
-    public class DesignAutomationSingleExternalServer : ISingleServerService, IDesignAutomationExternalServer
+    internal class DesignAutomationSingleExternalServer : ISingleServerService, IDesignAutomationExternalServer
     {
         private readonly IDesignAutomation designAutomation;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DesignAutomationSingleExternalServer"/> class.
+        /// </summary>
+        /// <param name="designAutomation">The design automation instance to be used by this server.</param>
         public DesignAutomationSingleExternalServer(IDesignAutomation designAutomation)
         {
             this.designAutomation = designAutomation;
         }
+        /// <summary>
+        /// Gets the service ID for the external service.
+        /// </summary>
         public ExternalServiceId ServiceId { get; } = new ExternalServiceId(Guid.NewGuid());
+        /// <summary>
+        /// Gets the server ID for the external server.
+        /// </summary>
         public Guid ServerId { get; } = Guid.NewGuid();
 
         #region ExecuteService
@@ -41,7 +51,6 @@ namespace ricaun.Revit.DA.ExternalServer
         {
             var service = ExternalServiceRegistry.GetService(ServiceId) as SingleServerService;
             var result = ExternalServiceRegistry.ExecuteService(service.GetPublicAccessKey(), externalData);
-            Console.WriteLine($"ExecuteService: \t{result} \t{externalData}");
             return result == ExternalServiceResult.Succeeded;
         }
 
