@@ -10,9 +10,13 @@ namespace ricaun.Revit.DA
     public abstract class DesignApplication : IExternalDBApplication, IDesignAutomation
     {
         /// <summary>
-        /// Use ExternalService to execute the IDesignAutomation.Execute, this make the Execute run in the AddIn context.
+        /// Use ExternalService to execute the IDesignAutomation.Execute, this make the Execute run in the AddIn Context.
         /// </summary>
         public virtual bool UseExternalService => true;
+        /// <summary>
+        /// Use DesignApplicationLoader to load the correct version of the DesignApplication based in the `PackageContents.xml` configuration.
+        /// </summary>
+        public virtual bool UseDesignApplicationLoader => true;
         public ControlledApplication ControlledApplication { get; private set; }
         public abstract void OnStartup();
         public abstract void OnShutdown();
@@ -24,7 +28,10 @@ namespace ricaun.Revit.DA
         {
             ControlledApplication = application;
 
-            designApplication = DesignApplicationLoader.LoadVersion(this);
+            designApplication = this;
+
+            if (UseDesignApplicationLoader)
+                designApplication = DesignApplicationLoader.LoadVersion(this);
 
             if (designApplication is IExternalDBApplication)
             {

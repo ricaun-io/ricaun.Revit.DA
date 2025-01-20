@@ -71,6 +71,16 @@ public class App : DesignApplication
 }
 ```
 
+#### UseDesignApplicationLoader
+
+The `UseDesignApplicationLoader` is `true` by default to force the Design Automation to support `PackageContents.xml` with multiple versions.
+```C#
+public class App : DesignApplication
+{
+    public override bool UseDesignApplicationLoader => false; // true by default
+}
+```
+
 ## License
 
 This project is [licensed](LICENSE) under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
