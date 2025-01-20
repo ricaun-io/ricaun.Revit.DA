@@ -7,14 +7,9 @@ using System;
 
 namespace ricaun.Revit.DA
 {
-    public abstract class DesignApplication<T> : DesignApplication where T : IDesignAutomation
-    {
-        public override bool Execute(Application application, string filePath, Document document)
-        {
-            return Activator.CreateInstance<T>().Execute(application, filePath, document);
-        }
-    }
-
+    /// <summary>
+    /// Represents a design application that executes a specific type of design automation.
+    /// </summary>
     public abstract class DesignApplication : IExternalDBApplication, IDesignAutomation
     {
         /// <summary>
@@ -25,13 +20,35 @@ namespace ricaun.Revit.DA
         /// Use DesignApplicationLoader to load the correct version of the DesignApplication based in the `PackageContents.xml` configuration.
         /// </summary>
         public virtual bool UseDesignApplicationLoader => true;
+        /// <summary>
+        /// Gets the controlled application.
+        /// </summary>
         public ControlledApplication ControlledApplication { get; private set; }
+        /// <summary>
+        /// Method called when the application starts up.
+        /// </summary>
         public virtual void OnStartup() { }
+        /// <summary>
+        /// Method called when the application shuts down.
+        /// </summary>
         public virtual void OnShutdown() { }
+        /// <summary>
+        /// Executes the design automation.
+        /// </summary>
+        /// <param name="application">The Revit application.</param>
+        /// <param name="filePath">The file path to the document.</param>
+        /// <param name="document">The Revit document.</param>
+        /// <returns>True if the execution is successful; otherwise, false.</returns>
         public abstract bool Execute(Application application, string filePath, Document document);
 
         private IExternalDBApplication designApplication;
         private DesignAutomationSingleExternalServer externalServer;
+
+        /// <summary>
+        /// Method called when the application starts up.
+        /// </summary>
+        /// <param name="application">The controlled application.</param>
+        /// <returns>The result of the external DB application startup.</returns>
         public ExternalDBApplicationResult OnStartup(ControlledApplication application)
         {
             ControlledApplication = application;
@@ -66,6 +83,11 @@ namespace ricaun.Revit.DA
             return ExternalDBApplicationResult.Succeeded;
         }
 
+        /// <summary>
+        /// Method called when the application shuts down.
+        /// </summary>
+        /// <param name="application">The controlled application.</param>
+        /// <returns>The result of the external DB application shutdown.</returns>
         public ExternalDBApplicationResult OnShutdown(ControlledApplication application)
         {
             ControlledApplication = application;
