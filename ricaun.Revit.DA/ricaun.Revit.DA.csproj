@@ -73,6 +73,7 @@
     <Company>ricaun</Company>
     <Authors>Luiz Henrique Cassettari</Authors>
     <Description>Design Automation for Revit library utility.</Description>
+    <PackageTags>revit;autodesk;autodesk-forge;autodesk-platform-services;design-automation</PackageTags>
     <CopyrightYears>$([System.DateTime]::Now.ToString('yyyy'))</CopyrightYears>
   </PropertyGroup>
 
