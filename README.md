@@ -109,6 +109,23 @@ public class App : DesignApplication<DesignAutomation>
 }
 ```
 
+## Tests
+
+The `ricaun.Revit.DA.Tests` test project requires some environment variables with the APS configuration to enable running Design Automation for Revit and test the `ricaun.Revit.DA.Example`.
+
+The project use the package [Autodesk.Forge.Oss.DesignAutomation](https://github.com/ricaun-io/forge-api-dotnet-oss.design.automation) with the `APS_CLIENT_ID` and `APS_CLIENT_SECRET`.
+
+```
+APS_CLIENT_ID=<your client id>
+APS_CLIENT_SECRET=<your client secret>
+```
+
+Your APS application requires to have API access to `Data Management API` and `Design Automation API`.
+
+### Build
+
+To build the project and generate the `ricaun.Revit.DA.Example.bundle.zip` is required to run the `Build` project or execute the `build.cmd` in the main solution folder.
+
 ## License
 
 This project is [licensed](LICENSE) under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
