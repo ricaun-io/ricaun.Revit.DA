@@ -15,11 +15,18 @@ namespace ricaun.Revit.DA
         /// <summary>
         /// Use ExternalService to execute the IDesignAutomation.Execute, this make the Execute run in the AddIn Context.
         /// </summary>
+        /// <remarks>The default value is 'true'.</remarks>
         public virtual bool UseExternalService => true;
         /// <summary>
         /// Use DesignApplicationLoader to load the correct version of the DesignApplication based in the `PackageContents.xml` configuration.
         /// </summary>
+        /// <remarks>The default value is 'true'.</remarks>
         public virtual bool UseDesignApplicationLoader => true;
+        /// <summary>
+        /// Gets a value indicating whether to use console logging for the internal <see cref="DesignApplication"/> methods.
+        /// </summary>
+        /// <remarks>The default value is 'false'.</remarks>
+        public virtual bool UseConsoleLog => false;
         /// <summary>
         /// Gets the controlled application.
         /// </summary>
@@ -56,17 +63,20 @@ namespace ricaun.Revit.DA
             designApplication = this;
 
             if (UseDesignApplicationLoader)
+            {
+                DesignApplicationLoader.LogWriteLine = WriteLine;
                 designApplication = DesignApplicationLoader.LoadVersion(this);
+            }
 
             if (designApplication is IExternalDBApplication)
             {
                 return designApplication.OnStartup(application);
             }
 
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"FullName: \t{GetType().Assembly.FullName}");
-            Console.WriteLine($"AddInName: \t{ControlledApplication.ActiveAddInId?.GetAddInName()}");
-            Console.WriteLine("----------------------------------------");
+            WriteLine("----------------------------------------");
+            WriteLine($"FullName: \t{GetType().Assembly.FullName}");
+            WriteLine($"AddInName: \t{ControlledApplication.ActiveAddInId?.GetAddInName()}");
+            WriteLine("----------------------------------------");
 
             try
             {
@@ -74,7 +84,7 @@ namespace ricaun.Revit.DA
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"DesignAutomationSingleExternalServer: \t{ex.Message}");
+                WriteLine($"DesignAutomationSingleExternalServer: \t{ex.Message}");
             }
 
             OnStartup();
@@ -119,9 +129,9 @@ namespace ricaun.Revit.DA
 
             var data = e.DesignAutomationData;
 
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine($"RevitApp: {data.RevitApp} \tFilePath: {data.FilePath} \tRevitDoc: {data.RevitDoc} \tAddInName:{data.RevitApp.ActiveAddInId?.GetAddInName()}");
-            Console.WriteLine("--------------------------------------------------");
+            WriteLine("--------------------------------------------------");
+            WriteLine($"RevitApp: {data.RevitApp} \tFilePath: {data.FilePath} \tRevitDoc: {data.RevitDoc} \tAddInName:{data.RevitApp.ActiveAddInId?.GetAddInName()}");
+            WriteLine("--------------------------------------------------");
 
             if (externalServer is not null && UseExternalService)
             {
@@ -130,6 +140,13 @@ namespace ricaun.Revit.DA
             }
 
             e.Succeeded = Execute(data.RevitApp, data.FilePath, data.RevitDoc);
+        }
+
+        private void WriteLine(string message)
+        {
+            if (!UseConsoleLog) return;
+
+            Console.WriteLine(message);
         }
     }
 }

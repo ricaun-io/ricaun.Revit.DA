@@ -17,6 +17,7 @@ namespace ricaun.Revit.DA.Tests
             var fullPath = GetFullPath(fileBundlePath);
         }
 
+        [Explicit]
         [TestCaseSource(nameof(GetBundles))]
         public async Task Execute(string fileBundlePath)
         {

@@ -10,6 +10,18 @@ namespace ricaun.Revit.DA.Loader
     internal static class DesignApplicationLoader
     {
         private static Assembly loadAssembly;
+        public static Action<string> LogWriteLine { get; set; }
+        private static void WriteLine(string message)
+        {
+            LogWriteLine?.Invoke(message);
+        }
+
+        /// <summary>
+        /// Loads the correct version of the 'IExternalDBApplication' based on the current version of RevitAPI.
+        /// </summary>
+        /// <typeparam name="T">The type of the design application.</typeparam>
+        /// <param name="designApplication">The design application instance.</param>
+        /// <returns>An instance of IExternalDBApplication if the correct version is found; otherwise, null.</returns>
         public static IExternalDBApplication LoadVersion<T>(T designApplication) where T : DesignApplication
         {
             var type = designApplication.GetType();
@@ -27,8 +39,8 @@ namespace ricaun.Revit.DA.Loader
             var revitReferenceVersion = revitAssemblyReference.Version.Major + 2000;
             var revitVersion = revitAssembly.GetName().Version.Major + 2000;
 
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine($"DesignApplicationLoader: \t{revitVersion} -> {revitReferenceVersion}");
+            WriteLine("--------------------------------------------------");
+            WriteLine($"DesignApplicationLoader: \t{revitVersion} -> {revitReferenceVersion}");
 
             for (int version = revitVersion; version > revitReferenceVersion; version--)
             {
@@ -36,29 +48,29 @@ namespace ricaun.Revit.DA.Loader
                 var directoryVersionRevit = Path.Combine(directory, "..", version.ToString());
                 var fileName = Path.Combine(directoryVersionRevit, Path.GetFileName(location));
 
-                //Console.WriteLine($"DesignApplicationLoader Try: \t{version}");
+                //WriteLine($"DesignApplicationLoader Try: \t{version}");
 
                 if (File.Exists(fileName))
                 {
                     fileName = new FileInfo(fileName).FullName;
-                    Console.WriteLine($"DesignApplicationLoader File Exists: \t{fileName}");
-                    Console.WriteLine($"DesignApplicationLoader Version: \t{version}");
-                    Console.WriteLine($"DesignApplicationLoader LoadFile: \t{Path.GetFileName(fileName)}");
+                    WriteLine($"DesignApplicationLoader File Exists: \t{fileName}");
+                    WriteLine($"DesignApplicationLoader Version: \t{version}");
+                    WriteLine($"DesignApplicationLoader LoadFile: \t{Path.GetFileName(fileName)}");
                     AppDomain.CurrentDomain.AssemblyResolve += LoadAssemblyResolve;
                     loadAssembly = Assembly.LoadFile(fileName);
                     break;
                 }
             }
 
-            Console.WriteLine("----------------------------------------");
+            WriteLine("----------------------------------------");
 
             if (loadAssembly is not null)
             {
                 var loadType = loadAssembly.GetType(type.FullName);
 
-                Console.WriteLine($"DesignApplicationLoader Type: {loadType}");
-                Console.WriteLine($"DesignApplicationLoader FrameworkName: \t{loadType.Assembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName}");
-                Console.WriteLine("----------------------------------------");
+                WriteLine($"DesignApplicationLoader Type: {loadType}");
+                WriteLine($"DesignApplicationLoader FrameworkName: \t{loadType.Assembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkName}");
+                WriteLine("----------------------------------------");
 
                 return Activator.CreateInstance(loadType) as IExternalDBApplication;
             }
@@ -73,7 +85,7 @@ namespace ricaun.Revit.DA.Loader
             if (File.Exists(assemblyPath))
             {
                 var folderName = Path.GetFileName(Path.GetDirectoryName(assemblyPath));
-                Console.WriteLine($"AssemblyResolve LoadFile: {folderName}\\{assemblyName.Name + ".dll"}");
+                WriteLine($"AssemblyResolve LoadFile: {folderName}\\{assemblyName.Name + ".dll"}");
                 return Assembly.LoadFile(assemblyPath);
             }
             return null;
