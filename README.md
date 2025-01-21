@@ -79,13 +79,13 @@ public override void OnStartup()
 }
 ```
 
-#### UseExternalService
+#### UseConsoleLog
 
-The `UseExternalService` is `true` by default to force the Design Automation to support `ActiveAddInId` by executing the `Execute` inside the `ExternalService`.
+The `UseConsoleLog` is `false` by default to disable/enable the console log for the internal `DesignApplication` methods.
 ```C#
-public class App : DesignApplication
+public class App : DesignApplication<DesignAutomation>
 {
-    public override bool UseExternalService => false; // true by default
+    public override bool UseConsoleLog => true; // false by default
 }
 ```
 
@@ -93,9 +93,19 @@ public class App : DesignApplication
 
 The `UseDesignApplicationLoader` is `true` by default to force the Design Automation to support `PackageContents.xml` with multiple versions.
 ```C#
-public class App : DesignApplication
+public class App : DesignApplication<DesignAutomation>
 {
     public override bool UseDesignApplicationLoader => false; // true by default
+}
+```
+
+#### UseExternalService
+
+The `UseExternalService` is `true` by default to force the Design Automation to support `ActiveAddInId` by executing the `Execute` inside the `ExternalService`.
+```C#
+public class App : DesignApplication<DesignAutomation>
+{
+    public override bool UseExternalService => false; // true by default
 }
 ```
 
