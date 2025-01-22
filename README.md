@@ -83,11 +83,11 @@ public override void OnStartup()
 
 #### UseConsoleLog
 
-The `UseConsoleLog` is `false` by default to disable/enable the console log for the internal `DesignApplication` methods.
+The `UseConsoleLog` is `true` by default to disable/enable the console log for the internal `DesignApplication` methods.
 ```C#
 public class App : DesignApplication<DesignAutomation>
 {
-    public override bool UseConsoleLog => true; // false by default
+    public override bool UseConsoleLog => false; // true by default
 }
 ```
 
@@ -115,7 +115,7 @@ public class App : DesignApplication<DesignAutomation>
 
 The `ricaun.Revit.DA.Tests` test project requires some environment variables with the APS configuration to enable running Design Automation for Revit and test the `ricaun.Revit.DA.Example`.
 
-The project use the package [Autodesk.Forge.Oss.DesignAutomation](https://github.com/ricaun-io/forge-api-dotnet-oss.design.automation) with the `APS_CLIENT_ID` and `APS_CLIENT_SECRET`.
+The project use the package [Autodesk.Forge.Oss.DesignAutomation](https://github.com/ricaun-io/forge-api-dotnet-oss.design.automation) with the environment variables `APS_CLIENT_ID` and `APS_CLIENT_SECRET`.
 
 ```
 APS_CLIENT_ID=<your client id>
