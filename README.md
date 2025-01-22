@@ -30,7 +30,7 @@ The main feature of this library is to fix some issues and limitations from the 
 
 ## DesignApplication
 
-The `DesignApplication` is a base class with some abstractions to help you to execute Design Automation for Revit.
+The `DesignApplication` is a base class with the `IExternalDBApplication` interface and some abstractions to help you to execute Design Automation for Revit. 
 
 ```C#
 public class App : DesignApplication
