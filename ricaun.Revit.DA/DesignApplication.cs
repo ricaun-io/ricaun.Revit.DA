@@ -25,8 +25,8 @@ namespace ricaun.Revit.DA
         /// <summary>
         /// Gets a value indicating whether to use console logging for the internal <see cref="DesignApplication"/> methods.
         /// </summary>
-        /// <remarks>The default value is 'false'.</remarks>
-        public virtual bool UseConsoleLog => false;
+        /// <remarks>The default value is 'true'.</remarks>
+        public virtual bool UseConsoleLog => true;
         /// <summary>
         /// Gets the controlled application.
         /// </summary>
